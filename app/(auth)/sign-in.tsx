@@ -1,4 +1,4 @@
-import { Link, router } from "expo-router";
+import { Link, router, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Image, ScrollView, Text, View } from "react-native";
 
@@ -6,15 +6,40 @@ import CustomButton from "@/components/CustomButton";
 import InputField from "@/components/InputField";
 import { icons, images } from "@/constants";
 import OAuth from "@/components/OAuth";
+import { useSignIn } from "@clerk/clerk-expo";
+import React from "react";
 
 const SignIn = () => {
     const [form, setForm] = useState({
         email: '',
         password: '',
     })
-    const onSignInPress = async () => {
+    const { signIn, setActive, isLoaded } = useSignIn()
+    const router = useRouter()
+    const onSignInPress = React.useCallback(async () => {
+        if (!isLoaded) {
+            return
+        }
 
-    }
+        try {
+            const signInAttempt = await signIn.create({
+                identifier: form.email,
+                password: form.password,
+            })
+
+            if (signInAttempt.status === 'complete') {
+                await setActive({ session: signInAttempt.createdSessionId })
+                router.replace('/')
+            } else {
+                // See https://clerk.com/docs/custom-flows/error-handling
+                // for more info on error handling
+                console.error(JSON.stringify(signInAttempt, null, 2))
+            }
+        } catch (err: any) {
+            console.error(JSON.stringify(err, null, 2))
+        }
+    }, [isLoaded, form.email, form.password])
+
     return (
         <ScrollView className="flex-1 bg-white">
             <View className="flex-1 bg-white">
@@ -43,7 +68,7 @@ const SignIn = () => {
                         onChangeText={(value) => setForm({ ...form, password: value })}
                     />
                     <CustomButton title="Sign In" onPress={onSignInPress} className="mt-6" />
-                    
+
                     <OAuth />
 
                     <Link href="/sign-up" className="text-lg text-center-general-200 mt-10">
