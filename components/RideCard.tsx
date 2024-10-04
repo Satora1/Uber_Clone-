@@ -4,7 +4,7 @@ import { icons } from "@/constants";
 import { formatDate, formatTime } from "@/lib/utils";
 import { Ride } from "@/types/type";
 
-const RideCard = ({ ride }: { ride: Ride }) => {
+ const  RideCard = ({ ride }: { ride: Ride }) =>  {
   return (
     <View className="flex flex-row items-center justify-center bg-white rounded-lg shadow-sm shadow-neutral-300 mb-3">
       <View className="flex flex-col items-start justify-center p-3">
@@ -48,7 +48,7 @@ const RideCard = ({ ride }: { ride: Ride }) => {
               Driver
             </Text>
             <Text className="text-md font-JakartaBold">
-              {ride.driver.first_name} {ride.driver.last_name}
+              {ride.driver?.first_name} {ride.driver?.last_name}
             </Text>
           </View>
 
@@ -57,7 +57,7 @@ const RideCard = ({ ride }: { ride: Ride }) => {
               Car Seats
             </Text>
             <Text className="text-md font-JakartaBold">
-              {ride.driver.car_seats}
+              {ride.driver?.car_seats}
             </Text>
           </View>
 
