@@ -169,15 +169,15 @@ export default function Page() {
         )}
         ListHeaderComponent={() => (
           <>
-            <View className='flex flex-row items-center justify-between my-5'>
-              <Text className='text-2xl capitalize font-JakartaExtraBold'>
-                Welcome {user?.firstName || user?.emailAddresses[0].emailAddress.split("@")[0]}{" "}
+            <View className="flex flex-row items-center justify-between my-5">
+              <Text className="text-2xl font-JakartaExtraBold">
+                Welcome {user?.firstName}👋
               </Text>
               <TouchableOpacity
                 onPress={handleSignOut}
-                className='jsutify-center items-center
-               w-10 h-10 rounded-full bg-white'>
-                <Image source={icons.out} className='w-4 h-4' />
+                className="justify-center items-center w-10 h-10 rounded-full bg-white"
+              >
+                <Image source={icons.out} className="w-4 h-4" />
               </TouchableOpacity>
             </View>
             <GoogleTextInput
