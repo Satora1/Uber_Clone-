@@ -1,10 +1,17 @@
-import { icons } from "@/constants"
-import { router } from "expo-router"
-import { Image, Text, TouchableOpacity, View } from "react-native"
-import { GestureHandlerRootView } from "react-native-gesture-handler"
-import Map from "@/components/map";
-
+import BottomSheet, {
+    BottomSheetScrollView,
+    BottomSheetView,
+  } from "@gorhom/bottom-sheet";
+  import { router } from "expo-router";
+  import React, { useRef } from "react";
+  import { Image, Text, TouchableOpacity, View } from "react-native";
+  import { GestureHandlerRootView } from "react-native-gesture-handler";
+  
+  import Map from "@/components/map";
+  import { icons } from "@/constants";
 const RideLayout = ({ title, children }: { title: string, children: React.ReactNode }) => {
+
+    const bottomSheetRef = useRef<BottomSheet>(null);    
     return (
         <GestureHandlerRootView>
             <View className="flex-1 bg-white">
@@ -16,12 +23,16 @@ const RideLayout = ({ title, children }: { title: string, children: React.ReactN
                             </View>
                         </TouchableOpacity>
                         <Text className="text-xl font-JakartaSemiBold">
-                            {title||"Go Back"}
+                            {title || "Go Back"}
                         </Text>
-                       
                     </View>
-                     <Map/>
+                    <Map />
                 </View>
+                <BottomSheet ref={bottomSheetRef} snapPoints={["40%", "85%"]} index={0} >
+                    <BottomSheetScrollView style={{ flex: 1, padding: 20 }}>
+                        {children}
+                    </BottomSheetScrollView>
+                </BottomSheet>
             </View>
         </GestureHandlerRootView>
     )
