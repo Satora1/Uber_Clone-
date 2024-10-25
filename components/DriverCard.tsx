@@ -6,6 +6,7 @@ import { formatTime } from "@/lib/utils";
 import { DriverCardProps } from "@/types/type";
 
 const DriverCard = ({ item, selected, setSelected }: DriverCardProps) => {
+
   return (
     <TouchableOpacity
       onPress={setSelected}
@@ -49,13 +50,13 @@ const DriverCard = ({ item, selected, setSelected }: DriverCardProps) => {
           </Text>
 
           <Text className="text-sm font-JakartaRegular text-general-800">
-            {item.car_seats} seats
+            {item?.car_seats} seats
           </Text>
         </View>
       </View>
 
       <Image
-        source={{ uri: item.car_image_url }}
+        source={{ uri: item?.car_image_url }}
         className="h-14 w-14"
         resizeMode="contain"
       />
