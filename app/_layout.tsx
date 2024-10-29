@@ -8,7 +8,8 @@ import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
 import { Slot } from 'expo-router'
 import { tokenCache } from '@/lib/auth';
 import 'react-native-get-random-values';
-
+import{LogBox}from"react-native"
+LogBox.ignoreLogs(["Warning:..."])
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
